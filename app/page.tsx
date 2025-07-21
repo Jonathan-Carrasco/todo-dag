@@ -42,7 +42,7 @@ export default function Home() {
   // Update the D3 graph whenever the DAG structure changes
   useD3Graph(svgRef, dagVersion, criticalTodo?.id);
 
-  // Update the todo list whenever the DAG structure changes
+  // Update the todo list and form visibility whenever the DAG structure changes
   useEffect(() => {
     setRootTodos(dagManager.getTodosByIds(dagManager.getIndegreeZeroNodes));
     setNumTodos(dagManager.numTodos);
@@ -103,7 +103,7 @@ export default function Home() {
     <div className="w-full h-screen bg-gray-50 relative bg-gradient-to-b from-indigo-300 to-indigo-700">
       {/* Todo List Panel - positioned on the left side */}
       <div className="absolute top-6 left-6 z-20 w-96">
-      {rootTodos.length > 0 && (
+      {numTodos > 0 && (
         <TodoList
           rootTodos={rootTodos}
           onDelete={handleDeleteTodo}
