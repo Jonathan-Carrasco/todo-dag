@@ -53,6 +53,11 @@ export default function Home() {
     const fetchTodos = async () => {
       try {
         const res = await fetch('/api/todos');
+
+        if (!res.ok) {
+          throw new Error(await res.text());
+        }
+        
         const data: TodoSchema[] = await res.json();
         dagManager.initialize(data);  
 
