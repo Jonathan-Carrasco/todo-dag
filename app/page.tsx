@@ -28,6 +28,9 @@ export default function Home() {
   // Root todos (todos with no dependencies) for the hierarchical display
   const [rootTodos, setRootTodos] = useState<Todo[]>([]);
 
+  // Number of todos that exist -- used in determing whether certain forms can be displayed
+  const [numTodos, setNumTodos] = useState<number>(0);
+
   /**
    * Triggers a DAG update by incrementing the version counter
    * This causes the graph and todo list to refresh
@@ -42,6 +45,7 @@ export default function Home() {
   // Update the todo list whenever the DAG structure changes
   useEffect(() => {
     setRootTodos(dagManager.getTodosByIds(dagManager.getIndegreeZeroNodes));
+    setNumTodos(dagManager.numTodos);
   }, [dagVersion]);
 
   // Initialize the application by fetching todos from the API on component mount
@@ -51,6 +55,7 @@ export default function Home() {
         const res = await fetch('/api/todos');
         const data: TodoSchema[] = await res.json();
         dagManager.initialize(data);  
+
         triggerDagUpdate();
       } catch (error) {
         console.error('Failed to fetch todos:', error);
@@ -115,8 +120,10 @@ export default function Home() {
           selectedTodo={selectedTodo}
           onClearSelection={() => setSelectedTodo(null)}
         />
+
         {/* Show dependency form when a dependency can be created */}
-        {dagManager.numTodos > 1 && <AddDependencyForm onDagUpdate={triggerDagUpdate} /> }
+        {numTodos > 1 && 
+          (<AddDependencyForm onDagUpdate={triggerDagUpdate}/>)}
       </div>
 
       {/* Dependency Graph Visualization - fills the entire background */}

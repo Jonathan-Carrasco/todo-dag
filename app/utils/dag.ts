@@ -324,7 +324,6 @@ class TodoDAG {
 
       const neighbors = this.adj.get(node);
 
-      console.log(neighbors);
       if (!neighbors || neighbors.size === 0) {
         // Leaf node - path is just itself with weight 0
         const result = { weight: 0, path: [node] };
