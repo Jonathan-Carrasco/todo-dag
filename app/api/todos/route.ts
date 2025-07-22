@@ -11,7 +11,15 @@ export async function GET() {
     const todos = await prisma.todo.findMany();
     return NextResponse.json(todos);
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching todos' }, { status: 500 });
+    // Make sure that env variables are set correctly
+    const pg_conn_string = process.env.POSTGRES_URL
+    const pexel_key = process.env.PEXELS_API_KEY
+    const pg_error = pg_conn_string ? 
+      'Error fetching todos' :
+      `Invalid Posgres connection string: ${pg_conn_string}. `;
+    const pexels_error = pexel_key ? '' : `Invalid Pexels API key: ${pexel_key}.`;
+
+    return NextResponse.json({ error: pg_error+pexels_error }, { status: 500 });
   }
 }
 
