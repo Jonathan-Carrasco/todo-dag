@@ -184,7 +184,7 @@ export const useD3Graph = (svgRef: RefObject<SVGSVGElement>, dagVersion: number,
       .attr("text-anchor", "middle")
       .attr("font-size", "12px")
       .attr("fill", (d: TodoNode) => isOverdue(d.dueDate) ? "#f56565" : "#6b7280")
-      .text((d: TodoNode) => d.dueDate ? `Due: ${formatTime(new Date(d.dueDate))}` : '');
+      .text((d: TodoNode) => d.dueDate ? `Due: ${d.dueDate}` : '');
 
     // Earliest start time
     node.append("text")
