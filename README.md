@@ -1,8 +1,10 @@
 ## Dependency Graph
 
 > [!IMPORTANT]  
-> You will need a Pexels API key to run this application. You can sign up for a free API key at https://www.pexels.com/api/.
+> You will need a Pexels API key to run this application. You can sign up for a free API key at https://www.pexels.com/api/
+
 > You will need a Postgres connection string to run this application. You can sign up for a free API key at https://www.pexels.com/api/
+
 > Add a .env.local file at the root level directory, with POSTGRES_URL=YOUR_CONN_STRING and PEXELS_API_KEY=YOUR_API_KEY
 
 ## Development
