@@ -1,0 +1,22 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+  schemas  = ["todo_app"]
+}
+
+model Todo {
+  id        Int       @id @default(autoincrement())
+  title     String
+  createdAt DateTime  @default(now())
+  dueDate   DateTime?
+  duration  Int
+  imageUrl  String
+  dependencies  Int[]     @default([]) // Reason for migrating to postgresql
+  
+  @@schema("todo_app")
+}
